@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Project4.Models.Teacher>
+
+
+@{
+    ViewBag.Title = "List";
+}
+<script src="JavaScript.js"></script>
+<div id="containerlist">
+    <nav>
+        <a class="navlink" href="/Teacher/New">New Teacher</a>
+    </nav>
+    <h1>List of Teachers</h1>
+    <form action="/Teacher/List" method="GET">
+        <input type="text" name="SearchKey" autocomplete="off"/>
+        <input type="submit" value="Search" />
+    </form>
+
+    @foreach (var teachers in Model)
+    {
+        <div class="listitem row">
+            <div class="col-md-12"><a href="/Teacher/Show/@teachers.Teacherid">@teachers.Teacherfname @teachers.Teacherlname</a></div>
+        </div>
+    }
+</div>
+
