@@ -6,10 +6,12 @@
     <nav style="width:70%; ">
         <a class="navlink" href="/Teacher/List">Back To Teachers</a>
         <a class="dellink" href="/Teacher/DeleteConfirm/@Model.Teacherid">Delete</a>
+        <a class="navlink" href="/Teacher/Update/@Model.Teacherid">Update</a>
     </nav>
     <h1>@Model.Teacherfname @Model.Teacherlname</h1>
     <p><strong>Employee Number:</strong>  @Model.Employeenumber</p>
-    <p><strong>Hire Date:</strong>  @Model.TeacherHireDate.ToString("dd-MMM-yyyy")</p>
+    <p><strong>Hire Date:</strong>  @Model.Hiredate</p>
     <p><strong>Salary:</strong>  @Model.Salary</p>
 
 </div>
+
