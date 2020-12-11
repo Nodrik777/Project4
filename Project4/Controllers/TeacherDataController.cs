@@ -87,7 +87,7 @@ namespace Project4.Controllers
         /// <summary>
         /// Find Teacher from the MySQL Database through an id. Non-Detrerministic.
         /// </summary>
-        /// <param name="id">The author Id</param>
+        /// <param name="id">The teacher Id</param>
         /// <returns>Teacher Object containing information about teacher with a matching id.Empty Teacher Object if Id doesn't match in the system</returns>
         ///<example>api/TeacherData/FindTeacher/6 -> return Teacher Object</example>
         ///<example>api/TeacherData/FindTeacher/9 -> return Teacher Object</example>
@@ -116,17 +116,17 @@ namespace Project4.Controllers
             while (ResultSet.Read())
             {
                 //Access Column information by the DB column name as an index
-                int TeacherId = (int)ResultSet["teacherid"];
-                string TeacherFname = ResultSet["teacherfname"].ToString();
-                string TeacherLname = ResultSet["teacherlname"].ToString();
-                string EmployeeNumber = ResultSet["employeenumber"].ToString();
+                int Teacherid = (int)ResultSet["teacherid"];
+                string Teacherfname = ResultSet["teacherfname"].ToString();
+                string Teacherlname = ResultSet["teacherlname"].ToString();
+                string Employeenumber = ResultSet["employeenumber"].ToString();
                 DateTime Hiredate = (DateTime)ResultSet["hiredate"];
                 decimal Salary = (decimal)ResultSet["salary"];
 
-                NewTeacher.Teacherid = TeacherId;
-                NewTeacher.Teacherfname = TeacherFname;
-                NewTeacher.Teacherlname = TeacherLname;
-                NewTeacher.Employeenumber = EmployeeNumber;
+                NewTeacher.Teacherid = Teacherid;
+                NewTeacher.Teacherfname = Teacherfname;
+                NewTeacher.Teacherlname = Teacherlname;
+                NewTeacher.Employeenumber = Employeenumber;
                 NewTeacher.Hiredate = Hiredate;
                 NewTeacher.Salary = Salary;
 
@@ -200,10 +200,10 @@ namespace Project4.Controllers
 
             //SQL QUERY
             cmd.CommandText = "Insert into teachers(teacherfname, teacherlname, employeenumber, salary)" +
-                " values(@Teacherfname, @TeacherLname, @EmployeeNumber, CURRENT_DATE(), @Salary)";
-            cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.Teacherfname);
-            cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.Teacherlname);
-            cmd.Parameters.AddWithValue("@EmployeeNumber", NewTeacher.Employeenumber);
+                " values(@Teacherfname, @Teacherlname, @Employeenumber, CURRENT_DATE(), @Salary)";
+            cmd.Parameters.AddWithValue("@Teacherfname", NewTeacher.Teacherfname);
+            cmd.Parameters.AddWithValue("@Teacherlname", NewTeacher.Teacherlname);
+            cmd.Parameters.AddWithValue("@Employeenumber", NewTeacher.Employeenumber);
             cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
             cmd.Prepare();
 
@@ -216,13 +216,13 @@ namespace Project4.Controllers
         /// <summary>
         /// Updates an Teacher on the MySQL Database. Non-Deterministic.
         /// </summary>
-        /// <param name="TeacherInfo">An object with fields that map to the columns of the author's table.</param>
+        /// <param name="TeacherInfo">An object with fields that map to the columns of the teacher's table.</param>
         /// <example>
         /// POST api/TeacherData/UpdateTeacher/ 
         /// FORM DATA / POST DATA / REQUEST BODY 
         /// {
-        ///	"AuthorFname":"Tom",
-        ///	"AuthorLname":"Kruz",
+        ///	"TeacherFname":"Tom",
+        ///	"TeacherLname":"Kruz",
         ///	"Salary":"99.99"
         /// }
         /// </example>
@@ -234,7 +234,7 @@ namespace Project4.Controllers
             //Create an instance of a connection
             MySqlConnection Conn = assignment.AccessDatabase();
 
-            //Debug.WriteLine(TeacherInfo.TeacherFname);
+            //Debug.WriteLine(TeacherInfo.Teacherfname);
 
             //Open the connection between the web server and database
             Conn.Open();
@@ -243,11 +243,12 @@ namespace Project4.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "update teachers set teacherfname=@Teacherfname, teacherlname=@Teacherlname, salary=@Salary, where teacherid=@Teacherid";
+            cmd.CommandText = "update teachers set teacherfname=@Teacherfname, teacherlname=@Teacherlname, salary=@Salary, employeenumber=@Employeenumber, where teacherid=@Teacherid";
+            cmd.Parameters.AddWithValue("@Teacherid", id);
             cmd.Parameters.AddWithValue("@Teacherfname", TeacherInfo.Teacherfname);
             cmd.Parameters.AddWithValue("@Teacherlname", TeacherInfo.Teacherlname);
             cmd.Parameters.AddWithValue("@Salary", TeacherInfo.Salary);
-            cmd.Parameters.AddWithValue("@Teacherid", id);
+            cmd.Parameters.AddWithValue("@Employeenumber", TeacherInfo.Employeenumber);
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
