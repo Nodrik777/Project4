@@ -21,10 +21,20 @@
 
         </div>
         <div class="inputrow">
+            <label for="Employeenumber">Employee Number:</label>
+            <input type="text" id="Employeenumber" name="Employeenumber" value="@Model.Employeenumber" />
+
+        </div>
+        <div class="inputrow">
+            <label for="Hiredate">Hire date:</label>
+            <input type="datetime" id="Hiredate" name="Hiredate" value="@Model.Hiredate" />
+
+        </div>
+        <div class="inputrow">
             <label for="Salary">Salary:</label>
             <input type="text" id="Salary" name="Salary" value="@Model.Salary" />
         </div>
-        
+
         <div class="inputrow">
             <input type="submit" value="Update Teacher" />
         </div>
